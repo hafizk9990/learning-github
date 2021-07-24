@@ -11,7 +11,7 @@ Git works very beautifully in collaboration with GitHub, so not only can you con
 ## Git vs GitHub: Learn the History
 Linus Torvalds, the guy who pioneered Linux Kernel and Linux Foundation, created the Git version controlling system in 2005. Whereas Microsoft corporation acquired GitHub in 2018 for remote cloud-based hosting, which was created in 2008 by four American programmers
 
-## Cloning GitHub Repositories
+## Cloning a GitHub Repository
 When we clone a GitHub repository locally after creating it on GitHub remotely, we basically ask Git to track all the changes that we are making to the local file system. Git Desktop creates a .git folder (hidden by default in Linux distros) in the root of our project folder for tracking purposes
 
 # A Deeper Dive into Git for Version Control
@@ -54,3 +54,26 @@ Suppose you revert commit "ABC" from the chain. Now, still you can check it out 
 This command is dangerous and should only be used when really needed. It deletes the entire chain (starting from the last commit) till the commit whose ID you are adding in the command. Also, if you push now (with the "forceful" flag denoted by -f, so that the command becomes ``` git push -f ```), everything will be deleted from the remote repository and, your code will be taken to that ID to which you have reset your branch. You will lose all your work, literally, locally as well as remotely
 
 **Note:** The difference between revert and reset should be very clear: revert just removes commits against a specific commit ID, whereas reset deletes everything committed on the chain after a particular commit
+
+### Working with Branches
+Branches allow you to take your work off the master (main) branch while building up on the work already done in the main branch
+
+* To **create a new branch,** you can use the command ``` git branch <name> ```
+
+* To **see all the branches,** use the command ``` git branch -a ```. This also lets you know what branch you are on, as it puts an asterisk next to the branch that you are currently on
+
+* You can use the command ``` git checkout <branch name> ``` to **switch to a specific branch.** Remember, the new sub-branch branch will have everything on the previous parent branch as well as the new changes that you make on the sub-branch branch
+
+* Use the command ``` git switch - ``` to **switch back** to the parent branch. You will see all your changes (made in the sub-branch branch) will be "deleted" from your local file system, because they were not made in this branch. The will be "un-deleted" if you switch back to the same sub-branch
+
+* If you want to **delete a sub-branch** which is not merged, use the command ``` git branch -D <branch name> ```. If the sub-branch is merged, then use the command ``` git branch -d <branch name> ```. Notice that we have replaced -D with -d in case the branch is already merged
+
+* While **merging branches,** you should be on that branch in which you want to merge (the parent branch). If merging happens and a **fast forward** message is given to you by Git via terminal, it means that there had been no work done on the parent branch (to which you are merging) since you created the sub-branch (the branch that you are now merging to the parent)
+
+* If there are **merge conflicts,** choose what you want to keep in the file and what you don't. After that commit again. This commit will be much like a merge commit, so you don't have to give any commit message
+
+# Scratching Surface of GitHub for Remote Collaboration
+As mentioned above, GitHub allows us to collaborate remotely and also hosts our source code free of cost. Only one concept, viz. forking, is discussed down below
+
+### Forking a Repo for Contributions
+Forking is done for contributing to somebody else's code. You fork their repo to your own account, which creates a copy of their repo to your account. Then, you clone it to your computer and start working on it. When you are done working, you send a merge request to the owners of the actual repo that you forked. If approved by the remote repo owners, it will be added to the actual repo (from where you forked). Else, it will be discarded
